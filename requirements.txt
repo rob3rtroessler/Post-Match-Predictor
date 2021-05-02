@@ -1,0 +1,8 @@
+Flask
+Flask-JSON
+gunicorn
+Jinja2
+jsonschema
+nltk
+Werkzeug
+

@@ -1,0 +1,336 @@
+<html>
+    <head>
+        <title>Post Match Predictor</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+        <!-- google font -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:200,200i,300,300i,400,400i,500,500i" rel="stylesheet">
+
+        <!-- bootstrap css -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/libs/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/libs/nouislider.css') }}">
+
+
+        <!-- own styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/grid.css') }}">
+
+    </head>
+
+
+    <body>
+        <!-- Wrapper for entire App -->
+        <div class="container-fluid" id="app" style="padding: 1vh; height: 100vh">
+
+            <div class="container-fluid" style="border: thin solid black; border-radius: 5px">
+
+
+                <!-- HEADING -->
+                <div class="row" id="app-heading" style="height: 10vh; background: lightgrey;padding-left: 0.5vw; padding-bottom: 0.25vh; padding-right: 0.5vw; padding-top: 1vh">
+                    <div class="col" style="border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4);">
+                        <div class="row justify-content-center" style="height: 100%">
+                            <div class="align-self-center">
+                                <h1 style="text-align: center">Post Match Predictor</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BODY -->
+                <div class="row" id="app-body" style="height: 57vh; background: rgba(211,211,211,0.49); border-bottom: thin solid black">
+
+                    <!-- FILTERS -->
+                    <div class="col-4">
+                        <!-- explorer -->
+                        <div class="row" style="height: 66.6%; background: lightgrey; padding-left: 0.5vw; padding-bottom: 0.25vh; padding-right: 0.25vw; padding-top: 1vh">
+                            <div class="col" style="border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4);">
+
+                                <!-- goals slider row -->
+                                <div class="row" style="height: 10%">
+                                    <div class="col-6">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <span class="align-self-center" style="text-align: center">Home Team</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <span class="align-self-center" style="text-align: center">Away Team</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- goals slider row -->
+                                <div class="row" style="height: 15%;">
+                                    <div class="col-1">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <span class="align-self-center info-text" id="home-goals-span">0-10</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <div id="home-goals-slider" style="height: 1vh;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2" style="font-size: 2vh">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center info-text-center">goals</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <div id="away-goals-slider" style="height: 1vh;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <span class="align-self-center info-text" id="away-goals-span">0-10</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- shots slider row -->
+                                <div class="row" style="height: 15%;">
+                                    <div class="col-1">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <span class="align-self-center info-text" id="home-shots-span">0-40</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <div id="home-shots-slider" style="height: 1vh;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2" style="font-size: 2vh">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center info-text-center">shots</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <div id="away-shots-slider" style="height: 1vh;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <span class="align-self-center info-text" id="away-shots-span">0-40</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- pass accuracy row-->
+                                <div class="row" style="height: 15%;">
+                                    <div class="col-1">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <span class="align-self-center info-text" id="home-pass-acc-span">0-100</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <div id="home-pass-acc-slider" style="height: 1vh;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2" style="font-size: 2vh">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center info-text-center">pass accuracy (%)</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <div id="away-pass-acc-slider" style="height: 1vh;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <span class="align-self-center info-text" id="away-pass-acc-span">0-100</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- distance covered row-->
+                                <div class="row" style="height: 15%;">
+                                    <div class="col-1">
+                                        <div class="row" style="height: 100%">
+                                            <span class="info-text" id="home-distance-span">90-130</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <div id="home-distance-slider" style="height: 1vh;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2" style="font-size: 2vh">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center info-text-center">distance covered (km)</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <div id="away-distance-slider" style="height: 1vh;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <span class= "align-self-center info-text" id="away-distance-span">90-130</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- button row -->
+                                <div class="row justify-content-center" style="height: 25%">
+                                    <button class="btn align-self-center" style="height: 50px; width: 200px; background: #35978f; border: thin solid #01665e" onclick="sendFilterSettings()">filter & explore</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- GENERATOR -->
+                        <div class="row" style="height: 33.4%; background: lightgrey; padding-left: 0.5vw; padding-bottom: 1vh; padding-right: 0.25vw; padding-top: 0.25vh">
+                            <div class="col" style="border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.2);">
+
+                                <!-- model selector slider row-->
+                                <div class="row" style="height: 33%;">
+                                    <div class="col-3">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center" style="text-align: center"> model:
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <input type="radio" id="model_naive" name="gender" value="male">
+                                                <label for="model_naive" class="model-label">Naive Model</label><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <input type="radio" id="model_wrapper" name="gender" value="male">
+                                                <label for="model_wrapper" class="model-label">Wrapper GPT-2</label><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <input type="radio" id="model_conditional" name="gender" value="male">
+                                                <label for="model_conditional" class="model-label">Conditional GPT-2</label><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- sentiment slider row-->
+                                <div class="row" style="height: 33%;">
+                                    <div class="col-3">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center" style="text-align: center"> sentiment:
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <div class="align-self-center">
+                                                <div id="sentiment-slider" style="height: 1vh;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- button row -->
+                                <div class="row justify-content-center" style="height: 33%">
+                                    <button class="btn align-self-center" style="height: 50px; width: 200px; background: #dfc27d; border: thin solid #8c510a" onclick="sendFilterSettings()">generate statement</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DISTRIBUTION -->
+                    <div class="col-4" style="background: rgba(59,134,59,0.85)">
+                        <div class="row" style="height: 100%; background: lightgrey; padding-left: 0.25vw; padding-bottom: 1vh; padding-right: 0.25vw; padding-top: 1vh">
+                            <div class="col" style="border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4);">
+                                <div class="row" id="distributionVisContainer" style="height: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MOST FREQUENT -->
+                    <div class="col-4" style="background: rgba(59,134,59,0.65)">
+                        <div class="row" style="height: 100%; background: lightgrey; padding-left: 0.25vw; padding-bottom: 1vh; padding-right: 0.5vw; padding-top: 1vh">
+                            <div class="col" style="border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4); overflow-y: scroll;">
+                                <div class="row" id="topWordsVisContainer" style="height: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OUTPUT -->
+                <div class="row" id="app-prediction" style="height: 30vh; background: rgba(211,211,211,0.73)">
+                    <div class="col">
+                        <div class="row" style="height: 14vh; border: thin solid grey; margin: 0.5vh; background: #c7eae5; padding: 5px; border-radius: 5px">
+                            <div class="align-self-center coach-output"><span id="interview_home">I'm happy with the game but not happy with the...</span></div>
+                        </div>
+                        <div class="row" style="height: 14vh; border: thin solid grey; margin: 0.5vh; background: #f6e8c3; padding: 5px; border-radius: 5px">
+                            <div class="align-self-center coach-output"><span id="interview_away">Generating...</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- JAVASCRIPT LIBRARIES -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/libs/bootstrap.min.js') }}"></script>
+
+        <!-- axios -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <!-- nouislider -->
+        <script src="{{ url_for('static', filename='js/libs/nouislider.js') }}"></script>
+
+        <!-- wNumb -->
+        <script src="{{ url_for('static', filename='js/libs/wNumb.js') }}"></script>
+
+
+        <!-- adding d3.js, vis.js, and viz.js-->
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+
+
+        <!-- OWN JAVASCRIPT FILES -->
+
+        <!-- MAIN -->
+        <script src="{{ url_for('static', filename='js/sliders.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/topwords-vis.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/distribution-vis.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+        <script>
+            console.log('test')
+        </script>
+    </body>
+</html>

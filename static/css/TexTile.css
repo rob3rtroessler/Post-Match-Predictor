@@ -1,0 +1,70 @@
+
+/*
+    TexTile Styles
+*/
+
+/* MENU */
+#TexTileWordInput {
+    text-align: center;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 500;
+    font-size: 2vh;
+    height: 100%;
+    width: 100%;
+    border: thin solid grey;
+}
+
+#GenTexTileButton{
+    background-color: #fb8072;
+    height: 100%;
+}
+
+#GenTexTileButton:hover {
+    background-color: #d36a6a;
+    cursor: pointer;
+}
+
+#FabricVisContainer {
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    scrollbar-arrow-color: transparent;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* VISUALIZATION */
+.tooltip {
+    text-align: center;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 500;
+    font-size: 1.5vh;
+    position: absolute;
+    height: 5vh;
+    background: #ffffff;
+    border-top: thin solid grey;
+    border-bottom: thin solid grey;
+    pointer-events: none;
+}
+
+
+.colorTile {
+    text-align: center;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 500;
+    font-size: 1.5vh;
+    height: 10%;
+    line-height: 10%;
+}
+
+.colorTileText {
+    justify-content: center;
+    align-items: center;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 500;
+    font-size: 1vh;
+    color: rgba(101, 101, 101, 0.56);
+}
+
