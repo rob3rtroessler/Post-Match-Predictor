@@ -41,7 +41,7 @@ def send_corpus_json():
     path_new = os.path.dirname(__file__)
 
     # join path with location of json file
-    data_url = os.path.join(path_new, "static\data", "2019-20__match_infos_with_grades_and_summary_translated_cleaned.csv")
+    data_url = os.path.join(path_new, "static/data", "2019-20__match_infos_with_grades_and_summary_translated_cleaned.csv")
 
     # read data into df
     df = pd.read_csv(data_url)
