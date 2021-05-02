@@ -5,4 +5,5 @@ Jinja2
 jsonschema
 nltk
 Werkzeug
+requests
 
