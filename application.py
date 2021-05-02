@@ -10,7 +10,6 @@ import re
 import requests
 import pandas as pd
 import numpy as np
-from time import sleep
 from bs4 import BeautifulSoup
 
 # own helper function

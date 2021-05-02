@@ -5,4 +5,8 @@ jsonschema
 Werkzeug
 requests
 pandas
-
+bs4
+numpy
+os
+sys
+re
