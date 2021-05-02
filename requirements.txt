@@ -7,5 +7,4 @@ requests
 pandas
 bs4
 numpy
-sys
 re
