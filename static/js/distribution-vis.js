@@ -32,7 +32,6 @@ class DistributionVis {
             .attr('transform', `translate(${vis.width / 2}, -15)`)
             .attr('text-anchor', 'middle');
 
-
         // tooltip
         vis.tooltip = d3.select("body").append('div')
             .attr('class', "tooltip")

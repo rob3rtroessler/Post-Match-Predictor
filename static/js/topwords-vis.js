@@ -125,6 +125,8 @@ class TopWordsVis {
 
         vis.textHome.enter().append('text')
             .merge(vis.textHome)
+            .transition()
+            .duration(500)
             .attr('class', 'home-text')
             .attr('x', (d,i) => 2)
             .attr('y', (d,i) => i*25+15)
@@ -137,6 +139,8 @@ class TopWordsVis {
 
         vis.textAway.enter().append('text')
             .merge(vis.textAway)
+            .transition()
+            .duration(500)
             .attr('class', 'away-text')
             .attr('x', (d,i) => vis.width-2) // adjust for right side
             .attr('y', (d,i) => i*25+15)

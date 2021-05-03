@@ -29,23 +29,27 @@ let topWordsVis = new TopWordsVis('topWordsVisContainer', data)
 
 
 
-// declare async initialize function to keep all processes in order
-async function initializeTexTileModule (data){
+// define carousel behaviour
+let carousel = $('#outputCarousel');
+
+// prevent rotating
+carousel.carousel({
+    interval: false
+})
+
+function explore() {
+    carousel.carousel(0)
+    carousel.carousel('pause')
+
+    sendFilterSettings()
 }
 
-// declare function that is triggered when server response received
-function initTexTileModule(data){
+function generate() {
+    carousel.carousel(1)
+    carousel.carousel('pause')
 
-    // call async function
-    initializeTexTileModule(data)
-        .then( wrangleTexTileData(data) )    // the reason why we passed the 'promised' data from function to function
-        .then( wrangleLineChartData(lockedWords, data) )    // lineChart data should take info from lockedWords from
-        .then (computeDistinctWords() )
-    // searched word should be computed in python and passed into the JSON file's 'metadata'.
-    //    .then( wrangleNetworkData() )
-    //    .then( wrangleMatrixData() )
+    sendFilterSettings()
 }
-
 
 function sendFilterSettings() {
 
