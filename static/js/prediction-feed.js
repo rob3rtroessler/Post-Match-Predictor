@@ -88,8 +88,11 @@ function build_feed_row(listOfMatchesAndPredictions){
         helperArray.push(tmpHtmlRow)
     })
 
+    // reverse order of helper array
+    let final_array = helperArray.reverse()
+
     // final html is simple concat
-    let finalHtml = helperArray.join("")
+    let finalHtml = final_array.join("")
 
     // update
     document.getElementById("feed-parent").innerHTML = finalHtml;
