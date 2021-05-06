@@ -116,6 +116,7 @@ function request_latest_predictions() {
     axios.get('/latest-predictions')
         .then( response => {
 
+            console.log('latest response', response.data)
             // put last ten generated matches in local memory
             lastTenGlobal = response.data
             build_feed_row(response.data)

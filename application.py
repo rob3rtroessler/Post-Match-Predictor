@@ -25,8 +25,8 @@ def imitate_live_soccer_stat_api():
     path_new = os.path.dirname(__file__)
 
     # grab paths for (imitating) API and database CSVs
-    api_url = os.path.join(path_new, "static\\data\\2018-19__match_infos_with_grades_and_summary_translated_cleaned.csv")
-    db_url = os.path.join(path_new, "static\\database\\database.csv")
+    api_url = os.path.join(path_new, "static/data", "2018-19__match_infos_with_grades_and_summary_translated_cleaned.csv")
+    db_url = os.path.join(path_new, "static/database", "database.csv")
 
     # grab random sample (imitating a game that's coming in from the live soccer stat API)
     random_sample = pd.read_csv(api_url).sample()
