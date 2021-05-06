@@ -7,3 +7,4 @@ requests
 pandas
 bs4
 numpy
+apscheduler
