@@ -5,6 +5,7 @@ class TopWordsVis {
         this.parentElement = parentElement;
         this.data = data;
         this.wrangledDate = []
+        this.stopWordsSwitch = false
 
         // call initVis method
         this.initVis()
@@ -53,6 +54,12 @@ class TopWordsVis {
     wrangleData(){
         let vis = this
 
+        // when the switch is on
+        if (vis.stopWordsSwitch){
+            // then filter the topword dict
+
+        }
+
         // reset wrangledDate
         let home = vis.data.home.slice(0,100)
         let away = vis.data.away.slice(0,100)
@@ -90,15 +97,15 @@ class TopWordsVis {
 
         vis.rectanglesHome.enter().append('rect')
             .merge(vis.rectanglesHome)
-            .attr('class', 'home-rect')
+            .attr('class', 'home-rect top-word-rect')
             .transition()
             .duration(500)
             .attr('x', (d,i) => 0)
             .attr('y', (d,i) => i*25)
             .attr('width', d => vis.rectWidthScaleHome(d.count))
             .attr('height', 20)
-            .style('fill', '#35978f')
-            .style('stroke', '#01665e')
+            .style('fill', 'rgba(53,151,143,0.3)')
+            .style('stroke', 'rgba(1,102,94,0.3)')
 
         vis.rectanglesHome.exit().remove()
 
@@ -107,15 +114,15 @@ class TopWordsVis {
 
         vis.rectanglesAway.enter().append('rect')
             .merge(vis.rectanglesAway)
-            .attr('class', 'away-rect')
+            .attr('class', 'away-rect top-word-rect')
             .transition()
             .duration(500)
             .attr('x', (d,i) => vis.width - vis.rectWidthScaleHome(d.count)) // adjust for right side
             .attr('y', (d,i) => i*25)
             .attr('width', d => vis.rectWidthScaleHome(d.count))
             .attr('height', 20)
-            .style('fill', '#35978f')
-            .style('stroke', '#01665e')
+            .style('fill', 'rgba(53,151,143,0.3)')
+            .style('stroke', 'rgba(1,102,94,0.3)')
 
         vis.rectanglesAway.exit().remove()
 

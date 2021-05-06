@@ -153,7 +153,7 @@ class DistributionVis {
 
                 // reset all
                 d3.selectAll('.match_circle')
-                    .attr('r', 5)
+                    .attr('r', 2)
                     .style('fill', '#35978f')
 
                 // highlight selection
@@ -190,7 +190,7 @@ class DistributionVis {
 
                 // stop highlighting
                 d3.select(this)
-                    .attr('r', 5)
+                    .attr('r', 2)
                     .style('fill', '#35978f')
 
                 document.getElementById("interview_home").innerHTML = 'explore interviews by hovering & clicking matches or generate an interview by clicking on "generate"';
@@ -212,8 +212,9 @@ class DistributionVis {
             .attr('class', 'match_circle')
             .attr('cx', d => vis.xScale(d.shot_diff)+ Math.floor(Math.random() * 5)) // some randomness to see overlapping matches
             .attr('cy', d => vis.yScale(d.goal_diff))
-            .attr('r', 5)
+            .attr('r', 2)
             .style('fill', '#35978f')
+            .style('opacity', '0.4')
             .style('stroke', '#01665e')
 
         vis.circles.exit().remove()

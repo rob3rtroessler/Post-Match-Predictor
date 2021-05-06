@@ -2,25 +2,57 @@ from flask import Flask
 app = Flask(__name__, static_url_path='/static')
 
 from flask import render_template, json, jsonify, Response, request
+from apscheduler.schedulers.background import BackgroundScheduler
+
 import os
 import sys
-
-# import data science & eda tools
 import re
 import requests
 import pandas as pd
 import numpy as np
-from bs4 import BeautifulSoup
 
-# own helper function
+# own helper functions
 from utils import *
 
+# # # # # # # # #
+# API REQUESTS  #
+# # # # # # # # #
+
+
+def imitate_live_soccer_stat_api():
+
+    # grab current path
+    path_new = os.path.dirname(__file__)
+
+    # grab paths for (imitating) API and database CSVs
+    api_url = os.path.join(path_new, "static\\data\\2018-19__match_infos_with_grades_and_summary_translated_cleaned.csv")
+    db_url = os.path.join(path_new, "static\\database\\database.csv")
+
+    # grab random sample (imitating a game that's coming in from the live soccer stat API)
+    random_sample = pd.read_csv(api_url).sample()
+
+    # => include model predictions here
+
+    # write to db
+    random_sample.to_csv(db_url, mode='a', header=False, index=False)
+
+
+
+
+# start scheduler
+scheduler = BackgroundScheduler(daemon=True)
+scheduler.add_job(imitate_live_soccer_stat_api,'interval',seconds=5)
+scheduler.start()
+
+
+# # # # # #
+# ROUTES  #
+# # # # # #
 
 
 # render index
 @app.route('/')
 def render_index(name=None):
-    #app.logger.info('test')
     return render_template('index.html', name=name)
 
 # send processed data upon request
@@ -40,11 +72,26 @@ def send_corpus_json():
     # grab current path
     path_new = os.path.dirname(__file__)
 
-    # join path with location of json file
-    data_url = os.path.join(path_new, "static/data", "2019-20__match_infos_with_grades_and_summary_translated_cleaned.csv")
+    # file names
+    file_names = [
+        '2018-19__match_infos_with_grades_and_summary_translated_cleaned.csv',
+        '2019-20__match_infos_with_grades_and_summary_translated_cleaned.csv']
 
-    # read data into df
-    df = pd.read_csv(data_url)
+    all_dfs_from_csv = []
+
+    # load
+    for name in file_names:
+        url = os.path.join(path_new, "static\data", name)
+        all_dfs_from_csv.append(pd.read_csv(url))
+
+    df_final = pd.concat(all_dfs_from_csv, axis=0, ignore_index=True)
+
+    # clean data
+    df_final = df_final[df_final['interview_home_english'] != 'NOTFOUND']
+    df_final['interview_home_english'] = df_final['interview_home_english'].apply(lambda x: x.lower())
+    df_final['interview_away_english'] = df_final['interview_away_english'].apply(lambda x: x.lower())
+
+    df = df_final
 
     """3) filter"""
     all_helper_series = []
@@ -72,6 +119,32 @@ def send_corpus_json():
     data = jsonify(df_dict)
 
     return data
+
+
+# send latest 10 predictions upon request
+@app.route('/latest-predictions', methods = ['GET'])
+def send_latest_predictions():
+
+    # grab current path
+    path_new = os.path.dirname(__file__)
+
+    # get db url (csv used instead temporarily)
+    url = os.path.join(path_new, "static\database\database.csv")
+
+    # load db
+    df_database_of_predictions = pd.read_csv(url)
+
+    list_of_last_ten_predictions = df_database_of_predictions.tail(10).to_dict('records')
+
+    # sanity check
+    #print(list_of_last_ten_predictions, file=sys.stderr)
+
+    # convert to json object
+    data = jsonify(list_of_last_ten_predictions)
+
+    # send
+    return data
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
