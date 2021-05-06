@@ -41,7 +41,7 @@ def imitate_live_soccer_stat_api():
 
 # start scheduler
 scheduler = BackgroundScheduler(daemon=True)
-scheduler.add_job(imitate_live_soccer_stat_api,'interval',seconds=5)
+scheduler.add_job(imitate_live_soccer_stat_api,'interval',seconds=15)
 scheduler.start()
 
 
