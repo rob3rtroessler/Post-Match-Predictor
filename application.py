@@ -81,7 +81,7 @@ def send_corpus_json():
 
     # load
     for name in file_names:
-        url = os.path.join(path_new, "static\data", name)
+        url = os.path.join(path_new, "static/data", name)
         all_dfs_from_csv.append(pd.read_csv(url))
 
     df_final = pd.concat(all_dfs_from_csv, axis=0, ignore_index=True)
@@ -129,7 +129,7 @@ def send_latest_predictions():
     path_new = os.path.dirname(__file__)
 
     # get db url (csv used instead temporarily)
-    url = os.path.join(path_new, "static\database\database.csv")
+    url = os.path.join(path_new, "static/database/database.csv")
 
     # load db
     df_database_of_predictions = pd.read_csv(url)
