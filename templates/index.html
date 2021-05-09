@@ -417,9 +417,31 @@
 
                                 <!-- distribution vis toolbar -->
                                 <div class="row" style="height: 10%;">
-                                    <div class="col">
+                                    <div class="col-6 offset-3">
                                         <div class="row justify-content-center" style="height: 100%">
                                             <h2 class="align-self-center">Filtered Matches</h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div style="position: absolute; height: 7vh; width: 6.5vw;">
+                                            <div style="height: 50%; margin-top: 1vh">
+                                                <select id="x-axis-selection" style="width: 100%; border-radius: 5px 5px 0px 0px; background: rgba(53, 151, 143, 0.3); font-size: 0.7em">
+                                                    <option value="shots_diff" selected>x-axis</option>
+                                                    <option value="goals_diff">goals (difference, total)</option>
+                                                    <option value="shots_diff">shots (difference, total)</option>
+                                                    <option value="accuracy_diff">pass accuracy (difference, %)</option>
+                                                    <option value="distance_diff">distance covered (difference, km)</option>
+                                                </select>
+                                            </div>
+                                            <div style="height: 50%">
+                                                <select id="y-axis-selection" style="width: 100%; border-radius: 0px 0px 5px 5px; background: rgba(53, 151, 143, 0.3); font-size: 0.7em">
+                                                    <option value="goals_diff" selected>y-axis</option>
+                                                    <option value="goals_diff">goals (difference, total)</option>
+                                                    <option value="shots_diff">shots (difference, total)</option>
+                                                    <option value="accuracy_diff">pass accuracy (difference, %)</option>
+                                                    <option value="distance_diff">distance covered (difference, km)</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

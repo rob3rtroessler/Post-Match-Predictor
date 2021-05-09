@@ -37,6 +37,15 @@ class DistributionVis {
             .attr('class', "tooltip")
             .attr('id', 'distributionTooltip')
 
+        // drop downs listeners
+        vis.xAxisDropDown = d3.select("#x-axis-selection").on('change', () => {
+            vis.updateVis()
+        })
+
+        vis.yAxisDropDown = d3.select("#y-axis-selection").on('change', () => {
+            vis.updateVis()
+        })
+
         // axis groups
         vis.xAxisGroup = vis.svg.append('g')
             .attr('class', 'axis x-axis')
@@ -46,12 +55,13 @@ class DistributionVis {
             .attr('class', 'axis y-axis');
 
         // text label for the y axis
-        vis.svg.append("text")
+        vis.yLabel = vis.svg.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 0 - vis.margin.left)
             .attr("x",0 - (vis.height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
+            .style("font-size", "0.7em")
             .text("Goal Difference");
 
         vis.svg.append("text")
@@ -60,7 +70,7 @@ class DistributionVis {
             .attr("x",0 - (vis.height *1/10))
             .attr("dy", "1.3em")
             .style("text-anchor", "middle")
-            .style("font-size", "0.7em")
+            .style("font-size", "0.5em")
             .text("Home Team -->");
 
         vis.svg.append("text")
@@ -69,31 +79,32 @@ class DistributionVis {
             .attr("x",0 - (vis.height *9/10))
             .attr("dy", "1.3em")
             .style("text-anchor", "middle")
-            .style("font-size", "0.7em")
+            .style("font-size", "0.5em")
             .text("<-- Away Team");
 
         // text label for the x axis
-        vis.svg.append("text")
+        vis.xLabel = vis.svg.append("text")
             .attr("y", vis.height)
             .attr("x",vis.width / 2)
-            .attr("dy", "2em")
+            .attr("dy", "3em")
             .style("text-anchor", "middle")
+            .style("font-size", "0.7em")
             .text("Difference in Shots");
 
         vis.svg.append("text")
             .attr("y", vis.height)
             .attr("x", vis.width *9/10)
-            .attr("dy", "2.3em")
+            .attr("dy", "3.3em")
             .style("text-anchor", "middle")
-            .style("font-size", "0.7em")
+            .style("font-size", "0.5em")
             .text("Away Team -->");
 
         vis.svg.append("text")
             .attr("y", vis.height)
             .attr("x", vis.width *1/10)
-            .attr("dy", "2.3em")
+            .attr("dy", "3.3em")
             .style("text-anchor", "middle")
-            .style("font-size", "0.7em")
+            .style("font-size", "0.5em")
             .text("<-- Home Team");
     }
 
@@ -106,12 +117,16 @@ class DistributionVis {
         // calculate goal & shot diff & populate wrangledData
         vis.data.forEach(match => {
 
-            let goal_diff = match['score_home'] - match['score_away']
-            let shot_diff = match['shots_home'] - match['shots_away']
+            let goals_diff = match['score_home'] - match['score_away']
+            let shots_diff = match['shots_home'] - match['shots_away']
+            let distance_diff = match['distance_home'] - match['distance_away']
+            let accuracy_diff = match['pass_accuracy_home'] - match['pass_accuracy_away']
 
             vis.wrangledDate.push({
-                goal_diff: goal_diff,
-                shot_diff: shot_diff,
+                goals_diff: goals_diff,
+                shots_diff: shots_diff,
+                distance_diff: distance_diff,
+                accuracy_diff: accuracy_diff,
                 data : match
             })
         })
@@ -125,17 +140,35 @@ class DistributionVis {
     updateVis(){
         let vis = this;
 
+        // grab latest values
+        let x_category = document.getElementById("x-axis-selection").value;
+        let y_category = document.getElementById("y-axis-selection").value;
+
+        let categoryLookUpTable = {
+            goals_diff: 'Goals (difference, total)',
+            shots_diff: 'Shots (difference, total)',
+            distance_diff: 'Distance Covered (difference, km)',
+            accuracy_diff: 'Pass Accuracy (difference, %)',
+        }
+
+        // update axis labels
+        if (x_category !== 'x-axis'){
+            vis.xLabel.text(categoryLookUpTable[x_category])
+        }
+        if (y_category !== 'y-axis'){
+            vis.yLabel.text(categoryLookUpTable[y_category])
+        }
+
         // scale for x axis
         vis.xScale = d3.scaleLinear()
             .range([vis.width, 0])
-            .domain([d3.min(vis.wrangledDate, d => d.shot_diff), d3.max(vis.wrangledDate, d => d.shot_diff)])
+            .domain([d3.min(vis.wrangledDate, d => d[x_category]), d3.max(vis.wrangledDate, d => d[x_category])])
 
-        console.log('shot_diffs', [d3.min(vis.wrangledDate, d => d.shot_diff), d3.max(vis.wrangledDate, d => d.shot_diff)])
 
         // scale for y axis
         vis.yScale = d3.scaleLinear()
             .range([vis.height, 0])
-            .domain([d3.min(vis.wrangledDate, d => d.goal_diff), d3.max(vis.wrangledDate, d => d.goal_diff)])
+            .domain([d3.min(vis.wrangledDate, d => d[y_category]), d3.max(vis.wrangledDate, d => d[y_category])])
 
         // axis
         vis.xAxisGroup.transition().duration(500).call(d3.axisBottom(vis.xScale))
@@ -146,8 +179,8 @@ class DistributionVis {
 
         vis.circles.enter().append('circle')
             .merge(vis.circles)
-            .attr('cx', d => vis.xScale(d.shot_diff)+ Math.floor(Math.random() * 5)) // some randomness to see overlapping matches
-            .attr('cy', d => vis.yScale(d.goal_diff))
+            .attr('cx', d => vis.xScale(d[x_category])+ Math.floor(Math.random() * 5)) // some randomness to see overlapping matches
+            .attr('cy', d => vis.yScale(d[y_category]))
 
             .on('mouseover', function (event,d) {
 
@@ -352,8 +385,8 @@ class DistributionVis {
             .transition()
             .duration(500)
             .attr('class', 'match_circle')
-            .attr('cx', d => vis.xScale(d.shot_diff)+ Math.floor(Math.random() * 5)) // some randomness to see overlapping matches
-            .attr('cy', d => vis.yScale(d.goal_diff))
+            .attr('cx', d => vis.xScale(d[x_category])+ Math.floor(Math.random() * 5)) // some randomness to see overlapping matches
+            .attr('cy', d => vis.yScale(d[y_category]))
             .attr('r', 2)
             .style('fill', '#35978f')
             .style('opacity', '0.4')
