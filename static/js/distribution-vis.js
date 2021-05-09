@@ -13,7 +13,7 @@ class DistributionVis {
     initVis(){
         let vis = this;
 
-        vis.margin = {top: 50, right: 50, bottom: 50, left: 50};
+        vis.margin = {top: 10, right: 50, bottom: 50, left: 50};
         vis.width = $("#" + vis.parentElement).width() - vis.margin.left - vis.margin.right;
         vis.height = $("#" + vis.parentElement).height() - vis.margin.top - vis.margin.bottom;
 
@@ -25,12 +25,12 @@ class DistributionVis {
             .attr('transform', `translate (${vis.margin.left}, ${vis.margin.top})`);
 
         // add title
-        vis.svg.append('g')
-            .attr('class', 'title bar-title')
-            .append('text')
-            .text('Currently selected games from dataset')
-            .attr('transform', `translate(${vis.width / 2}, -15)`)
-            .attr('text-anchor', 'middle');
+        // vis.svg.append('g')
+        //     .attr('class', 'title bar-title')
+        //     .append('text')
+        //     .text('Currently selected games from dataset')
+        //     .attr('transform', `translate(${vis.width / 2}, -15)`)
+        //     .attr('text-anchor', 'middle');
 
         // tooltip
         vis.tooltip = d3.select("body").append('div')
@@ -163,27 +163,161 @@ class DistributionVis {
                     .attr('r', 10)
                     .style('fill', '#35978f')
 
-                // update text
-                let interview_home = d.data['interview_home_english']
-                let interview_away = d.data['interview_away_english']
+                // display interviews in output row
+                display_interviews(d.data)
 
-                document.getElementById("interview_home").innerHTML = `${d.data['coach_home']} (${d.data['name_home_team']}): ${interview_home}`;
-                document.getElementById("interview_away").innerHTML = interview_away;
-
-                // update tooltip
                 // update tooltip
                 vis.tooltip
                     .style("opacity", 1)
+                    .style("display", 'block')
                     .style("left", event.pageX + 20 + "px")
                     .style("top", event.pageY + "px")
                     .html(`
-                        <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
-                            <h3>${d.data['name_home_team']} - ${d.data['name_away_team']}<h3>
-                            <h4>Score: ${d.data['score_home']} - ${d.data['score_away']}</h4>
-                            <h4>Shots: ${d.data['shots_home']} - ${d.data['shots_away']}</h4>
-                            <h4>Passes: ${d.data['passes_home']} - ${d.data['passes_away']}</h4>                            
-                            <h4>Misplaced Passes: ${d.data['misplaced_passes_home']} - ${d.data['misplaced_passes_away']}</h4>                            
-                            <h4>Pass Accuracy: ${d.data['pass_accuracy_home']}% - ${d.data['pass_accuracy_away']}%</h4>
+                        <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px; width: 20vw; height: 30vh">
+                            <div class="container-fluid" style="height: 100%; width: 100%">
+                                <div class="row" style="height: 15%">
+                                    <div class="col-6">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <img class="align-self-center" src="static/img/club-icons/${d.data['name_home_team']}.png" style="max-height:80%; width: auto; height: auto">                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <img class="align-self-center" src="static/img/club-icons/${d.data['name_away_team']}.png" style="max-height:80%; width: auto; height: auto">                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- team names -->
+                                <div class="row" style="height: 15%; margin-bottom: 5%">
+                                    <div class="col-6">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h3>${d.data['name_home_team']}<h3>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h3>${d.data['name_away_team']}<h3>                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- goals -->
+                                <div class="row" style="height: 12.5%">
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['score_home']}<h5>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h4>goals<h4>                                        
+                                        </div>
+                                    </div>
+                                     <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['score_away']}<h5>                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- shots -->
+                                <div class="row" style="height: 12.5%">
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['shots_home']}<h5>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h4>score<h4>                                        
+                                        </div>
+                                    </div>
+                                     <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['shots_away']}<h5>                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- passes -->
+                                <div class="row" style="height: 12.5%">
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['passes_home']}<h5>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h4 class="align-self-center">total passes<h4>                                        
+                                        </div>
+                                    </div>
+                                     <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['passes_away']}<h5>                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- misplaced passes -->
+                                <div class="row" style="height: 12.5%">
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['misplaced_passes_home']}<h5>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h4 class="align-self-center">mispalced passes<h4>                                        
+                                        </div>
+                                    </div>
+                                     <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['misplaced_passes_away']}<h5>                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                 <!-- pass accuracy -->
+                                <div class="row" style="height: 12.5%">
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['pass_accuracy_home']}%<h5>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h4 class="align-self-center">pass accuracy<h4>                                        
+                                        </div>
+                                    </div>
+                                     <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['pass_accuracy_home']}%<h5>                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- distance covered -->
+                                <div class="row" style="height: 12.5%">
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['distance_home']}<h5>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h4 class="align-self-center">distance covered<h4>                                        
+                                        </div>
+                                    </div>
+                                     <div class="col-4">
+                                        <div class="row justify-content-center" style="height: 100%">
+                                            <h5 class="align-self-center">${d.data['distance_away']}<h5>                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
                         </div>`);
             })
             .on('mouseout', function (event,d) {
@@ -193,14 +327,22 @@ class DistributionVis {
                     .attr('r', 2)
                     .style('fill', '#35978f')
 
-                document.getElementById("interview_home").innerHTML = 'explore interviews by hovering & clicking matches or generate an interview by clicking on "generate"';
-                document.getElementById("interview_away").innerHTML = '';
+                // <h3>${d.data['name_home_team']} - ${d.data['name_away_team']}<h3>
+                // <h4>Score: ${d.data['score_home']} - ${d.data['score_away']}</h4>
+                // <h4>Shots: ${d.data['shots_home']} - ${d.data['shots_away']}</h4>
+                // <h4>Passes: ${d.data['passes_home']} - ${d.data['passes_away']}</h4>
+                // <h4>Misplaced Passes: ${d.data['misplaced_passes_home']} - ${d.data['misplaced_passes_away']}</h4>
+                // <h4>Pass Accuracy: ${d.data['pass_accuracy_home']}% - ${d.data['pass_accuracy_away']}%</h4>
+                //
+                // reset output row to instructions
+                display_instructions()
 
                 // hide tooltip
                 vis.tooltip
                     .style("opacity", 0)
                     .style("left", 0 +"px")
                     .style("top", 0+ "px")
+                    .style("display", 'none')
 
             })
             .on('click', function (a,b) {

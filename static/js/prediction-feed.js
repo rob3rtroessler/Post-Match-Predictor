@@ -14,6 +14,7 @@ function trigger_twitter_button(){
     // lastly, call show_hide_feed()
     show_hide_feed(twitterSwitch)
 }
+
 function show_hide_feed(switchValue) {
     if(switchValue){
         console.log('show feed')
@@ -119,9 +120,10 @@ function request_latest_predictions() {
     axios.get('/latest-predictions')
         .then( response => {
 
-            console.log('latest response', response.data)
-            // put last ten generated matches in local memory
+            // store last ten generated matches in global variable
             lastTenGlobal = response.data
+
+            // build feed
             build_feed_row(response.data)
         })
         .catch(function (error) {
@@ -133,10 +135,6 @@ function show_feed_match(index) {
     console.log('show_feed_match', lastTenGlobal[index])
 }
 
-
-/* INIT */
-
-
-// make initial request, then start to listen to the server
+// INIT - make initial request, then start to listen to the server
 request_latest_predictions()
 serverListener()

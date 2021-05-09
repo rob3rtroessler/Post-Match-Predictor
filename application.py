@@ -111,13 +111,24 @@ def send_corpus_json():
         prior_series = series
 
     filtered_df = df.loc[final_locs]
-    filtered_df['interview_home_english_as_tokens'] = filtered_df['interview_home_english'].apply(lambda x: x.replace('.','').split(' '))
-    filtered_df['interview_away_english_as_tokens'] = filtered_df['interview_away_english'].apply(lambda x: x.replace('.','').split(' '))
 
+    """4) final cleaning"""
+
+    # delete punctuation and generate cols with tokens
+    filtered_df['interview_home_english_as_tokens'] = filtered_df['interview_home_english'].apply(lambda x: x.replace('.','').replace(',','').split(' '))
+    filtered_df['interview_away_english_as_tokens'] = filtered_df['interview_away_english'].apply(lambda x: x.replace('.','').replace(',','').split(' '))
+
+    # generate cols with no stop words
+    filtered_df['interview_home_english_as_tokens_no_stopwords'] = filtered_df['interview_home_english_as_tokens'].apply(lambda x: exclude_stopwords(x))
+    filtered_df['interview_away_english_as_tokens_no_stopwords'] = filtered_df['interview_away_english_as_tokens'].apply(lambda x: exclude_stopwords(x))
+
+    # convert to usable data structure
     df_dict = filtered_df.to_dict('records')
 
+    # jsonify
     data = jsonify(df_dict)
 
+    # return
     return data
 
 

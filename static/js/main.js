@@ -1,54 +1,22 @@
-// DECLARE GLOBAL VARIABLES
-
-// home_away_matters: false,
-//     score_home: score_home,
-//     score_away: score_away,
-//     shots_home: shots_home,
-//     shots_away: shots_away,
-//     passes_home: passes_home,
-//     passes_away: passes_away,
-//     misplaced_passes_home: misplaced_passes_home,
-//     misplaced_passes_away: misplaced_passes_away,
-//     pass_accuracy_home: pass_accuracy_home,
-//     pass_accuracy_away: pass_accuracy_away,
-//     distance_home: distance_home,
-//     distance_away: distance_away,
-//     grade: grade,
-//     summary_german: summary_german,
-//     summary_english: summary_english,
-//     coach_home: 'TODO',
-//     coach_away: 'TODO',
-//     interview_german: 'TODO',
-//     interview_english: 'TODO'
-//
-
-console.log('main.js loaded')
+// DECLARE GLOBAL VARIABLES AND CREATE CLASS INSTANCES
 let data = 'placeholder';
 let distributionVis = new DistributionVis('distributionVisContainer', data)
 let topWordsVis = new TopWordsVis('topWordsVisContainer', data)
 
-
-
-// define carousel behaviour
-let carousel = $('#outputCarousel');
-
-// prevent rotating
-carousel.carousel({
-    interval: false
-})
-
-function explore() {
-    carousel.carousel(0)
-    carousel.carousel('pause')
-
-    sendFilterSettings()
-}
-
-function generate() {
-    carousel.carousel(1)
-    carousel.carousel('pause')
-
-    sendFilterSettings()
+// initial filter settings
+let filterSettings = {
+    score_home: sliderSettings[0].start,
+    score_away: sliderSettings[1].start,
+    shots_home:  sliderSettings[2].start,
+    shots_away:  sliderSettings[3].start,
+    passes_home: sliderSettings[4].start,
+    passes_away: sliderSettings[5].start,
+    misplaced_passes_home: sliderSettings[6].start,
+    misplaced_passes_away: sliderSettings[7].start,
+    pass_accuracy_home:  sliderSettings[8].start,
+    pass_accuracy_away:  sliderSettings[9].start,
+    distance_home:  sliderSettings[10].start,
+    distance_away:  sliderSettings[11].start
 }
 
 function sendFilterSettings() {
@@ -70,7 +38,7 @@ function sendFilterSettings() {
 
             // compute most frequent words & call
             console.log('cling toWordsVis')
-            topWordsVis.data = computeMostFrequent(response.data)
+            topWordsVis.data = response.data//computeMostFrequent(response.data)
             topWordsVis.wrangleData()
         })
         .catch(function (error) {
@@ -78,52 +46,5 @@ function sendFilterSettings() {
         });
 }
 
-// helper functions
-function computeMostFrequent(data) {
-
-    let most_freq_home = {}
-    let most_freq_away = {}
-    data.forEach(match=>{
-        // home team
-        match['interview_home_english_as_tokens'].forEach(token =>{
-            if (token in most_freq_home){
-                most_freq_home[token] +=1
-            }
-            else{
-                most_freq_home[token] = 1
-            }
-        })
-
-        // away team
-        match['interview_away_english_as_tokens'].forEach(token =>{
-            if (token in most_freq_away){
-                most_freq_away[token] +=1
-            }
-            else{
-                most_freq_away[token] = 1
-            }
-        })
-    })
-
-    let most_freq_home_sorted = sortMostFrequentDict(most_freq_home)
-    let most_freq_away_sorted = sortMostFrequentDict(most_freq_away)
-
-    // Create a new array with only the first 5 items
-    //console.log(items.slice(0, 50));
-
-    return {home: most_freq_home_sorted, away: most_freq_away_sorted}
-}
-
-function sortMostFrequentDict(freqDict){
-    let items = Object.keys(freqDict).map(function(key) {
-        return [key, freqDict[key]];
-    });
-
-    // Sort the array based on the second element
-    items.sort(function(first, second) {
-        return second[1] - first[1];
-    });
-
-    console.log('returning', items)
-    return items
-}
+// start by sending initial filter settings to the server
+sendFilterSettings()

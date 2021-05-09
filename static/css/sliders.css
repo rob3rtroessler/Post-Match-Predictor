@@ -147,31 +147,3 @@
 .model-label {
     font-size: 1.3vh;
 }
-
-
-/*SWITCHES*/
-
-/*
-NOT IMPORTANT
-.form-select:focus {*/
-/*    border-color: yellow; !important;*/
-/*    outline: 0;*/
-/*    box-shadow: 0 0 0 0.1rem yellow;!important*/
-/*}
-*/
-
-/*
-NOT IMPORTANT
-.form-check-input:checked {*/
-/*    background-color: yellow;!important*/
-/*    border-color: yellow;!important*/
-/*}*/
-
-.form-check-input:focus {
-    border-color: grey;!important
-    outline: 0;
-    box-shadow: 0 0 0 0.01rem #43a097;!important
-}
-.form-check-input:checked {
-    background-color: #4dbeb4; !important
-}
