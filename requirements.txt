@@ -8,5 +8,4 @@ pandas
 bs4
 numpy
 apscheduler
-pickle
 sklearn
