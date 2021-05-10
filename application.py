@@ -12,12 +12,16 @@ import pandas as pd
 import numpy as np
 
 # own helper functions
-from utils import *
+from python_scripts.utils import *
+from python_scripts.generator import *
+
+# initialize the generator
+gen = interview_generator()
+
 
 # # # # # # # # #
 # API REQUESTS  #
 # # # # # # # # #
-
 
 def imitate_live_soccer_stat_api():
 
@@ -155,6 +159,58 @@ def send_latest_predictions():
 
     # send
     return data
+
+
+# send processed data upon request
+@app.route('/get-prediction', methods = ['POST'])
+def prediction_interview():
+
+    """1) read request"""
+    # get the request info
+    stats_bytes = request.data
+    stats_string = stats_bytes.decode('utf-8')
+    stats_dict = json.loads(stats_string)['stats']
+
+    # sanity check
+    print(stats_dict, file=sys.stderr)
+
+    # set match grade to 2 -> doesn't have a big impact for the logistic regression model anyhow
+    stats_dict['grade'] = 2
+
+    home_team_dict = stats_dict
+    home_team_dict['is_home_team'] = True
+
+    # build away_dict
+    away_team_dict = {
+        'score_home': home_team_dict['score_away'],
+        'score_away': home_team_dict['score_home'],
+        'shots_home': home_team_dict['shots_away'],
+        'shots_away': home_team_dict['shots_home'],
+        'passes_home':home_team_dict['passes_away'],
+        'passes_away':home_team_dict['passes_home'],
+        'misplaced_passes_home':home_team_dict['misplaced_passes_away'],
+        'misplaced_passes_away':home_team_dict['misplaced_passes_home'],
+        'pass_accuracy_home':home_team_dict['pass_accuracy_away'],
+        'pass_accuracy_away':home_team_dict['pass_accuracy_home'],
+        'distance_home':home_team_dict['distance_away'],
+        'distance_away':home_team_dict['distance_home'],
+        'grade':home_team_dict['grade'],
+        'is_home_team':False
+    }
+
+
+    generated_interview_home = gen.generate_interview(home_team_dict)
+    generated_interview_away = gen.generate_interview(away_team_dict)
+
+    generated_interviews = {'generated_interview_home': generated_interview_home, 'generated_interview_away':generated_interview_away}
+
+    final = {'stats': stats_dict, 'interviews': generated_interviews}
+    # convert to json object
+    data = jsonify(final)
+
+    # send
+    return data
+
 
 
 if __name__ == "__main__":

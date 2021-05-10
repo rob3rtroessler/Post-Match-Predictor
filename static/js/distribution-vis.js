@@ -325,7 +325,7 @@ class DistributionVis {
                                     </div>
                                      <div class="col-4">
                                         <div class="row justify-content-center" style="height: 100%">
-                                            <h5 class="align-self-center">${d.data['pass_accuracy_home']}%<h5>                                        
+                                            <h5 class="align-self-center">${d.data['pass_accuracy_away']}%<h5>                                        
                                         </div>
                                     </div>
                                 </div>

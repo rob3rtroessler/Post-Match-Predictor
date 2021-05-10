@@ -67,3 +67,24 @@ pre { font-family: "Rock Salt"; font-size: 13px; font-style: normal; font-varian
     font-weight: 700;
     line-height: 15.4px;
 }
+
+.info-text {
+    font-size: 0.9vh;
+}
+
+.info-text-center {
+    font-size: 1.3vh;
+    text-align: center
+}
+
+.info-text-gen {
+    font-size: 1.5vh;
+}
+
+.anchor-left {
+    text-anchor: start;
+}
+
+.anchor-right {
+    text-anchor: end;
+}

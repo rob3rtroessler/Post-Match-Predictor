@@ -3,30 +3,53 @@ let data = 'placeholder';
 let distributionVis = new DistributionVis('distributionVisContainer', data)
 let topWordsVis = new TopWordsVis('topWordsVisContainer', data)
 
+let generatorFilterSettings;
+
 // initial filter settings
-let filterSettings = {
-    score_home: sliderSettings[0].start,
-    score_away: sliderSettings[1].start,
-    shots_home:  sliderSettings[2].start,
-    shots_away:  sliderSettings[3].start,
-    passes_home: sliderSettings[4].start,
-    passes_away: sliderSettings[5].start,
-    misplaced_passes_home: sliderSettings[6].start,
-    misplaced_passes_away: sliderSettings[7].start,
-    pass_accuracy_home:  sliderSettings[8].start,
-    pass_accuracy_away:  sliderSettings[9].start,
-    distance_home:  sliderSettings[10].start,
-    distance_away:  sliderSettings[11].start
+let explorerFilterSettings = {
+    score_home: explorerSliderSettings[0].start,
+    score_away: explorerSliderSettings[1].start,
+    shots_home:  explorerSliderSettings[2].start,
+    shots_away:  explorerSliderSettings[3].start,
+    passes_home: explorerSliderSettings[4].start,
+    passes_away: explorerSliderSettings[5].start,
+    misplaced_passes_home: explorerSliderSettings[6].start,
+    misplaced_passes_away: explorerSliderSettings[7].start,
+    pass_accuracy_home:  explorerSliderSettings[8].start,
+    pass_accuracy_away:  explorerSliderSettings[9].start,
+    distance_home:  explorerSliderSettings[10].start,
+    distance_away:  explorerSliderSettings[11].start
+}
+
+function grabGeneratorFilterSettings() {
+
+    // grab the values of wherever the slider is at the moment
+    generatorFilterSettings = {
+        score_home: +document.getElementById('home-goals-gen-slider').noUiSlider.get(),
+        score_away: +document.getElementById('away-goals-gen-slider').noUiSlider.get(),
+        shots_home: +document.getElementById('home-shots-gen-slider').noUiSlider.get(),
+        shots_away: +document.getElementById('away-shots-gen-slider').noUiSlider.get(),
+        passes_home: +document.getElementById('home-passes-gen-slider').noUiSlider.get(),
+        passes_away: +document.getElementById('away-passes-gen-slider').noUiSlider.get(),
+        misplaced_passes_home: +document.getElementById('home-misplaced_passes-gen-slider').noUiSlider.get(),
+        misplaced_passes_away: +document.getElementById('away-misplaced_passes-gen-slider').noUiSlider.get(),
+        pass_accuracy_home: +document.getElementById('home-pass-acc-gen-slider').noUiSlider.get(),
+        pass_accuracy_away: +document.getElementById('away-pass-acc-gen-slider').noUiSlider.get(),
+        distance_home: +document.getElementById('home-distance-gen-slider').noUiSlider.get(),
+        distance_away: +document.getElementById('away-distance-gen-slider').noUiSlider.get()
+    }
+
+    return generatorFilterSettings;
 }
 
 function sendFilterSettings() {
 
     console.log("---------------------------------------------- \n " +
-        "The following filter settings will be sent to the server:", filterSettings);
+        "The following filter settings will be sent to the server:", explorerFilterSettings);
 
 
     axios.post('/filterData', {
-        'filters' : filterSettings
+        'filters' : explorerFilterSettings
     })
         .then(function (response) {
 

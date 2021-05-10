@@ -8,3 +8,6 @@ pandas
 bs4
 numpy
 apscheduler
+string
+pickle
+sklearn

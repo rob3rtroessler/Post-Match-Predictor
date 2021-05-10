@@ -24,15 +24,14 @@
 
 
 
-input[type=checkbox]{
+#sw-switch-container input[type=checkbox]{
     height: 0;
     width: 0;
     visibility: hidden;
 }
 
-label {
+#sw-switch-container label {
     cursor: pointer;
-    text-indent: -9999px;
     width: 2vw;
     height: 1.2vh;
     background: grey;
@@ -43,27 +42,27 @@ label {
 }
 
 /*inner circle*/
-label:after {
+#sw-switch-container label:after {
     content: '';
     position: absolute;
     top: 0.1vh;
     left: 0.1vw;
-    width: 1vh;
+    width: 1.5vh;
     height: 1vh;
     background: #fff;
     border-radius: 90px;
-    transition: 0.3s;
+    transition: 0.5s;
 }
 
-input:checked + label {
+#sw-switch-container input:checked + label {
     background: #43a097;
 }
 
-input:checked + label:after {
-    left: calc(100% - 5px);
+#sw-switch-container input:checked + label:after {
+    left: calc(100% - 1px);
     transform: translateX(-100%);
 }
 
-label:active:after {
-    width: 4vw;
+#sw-switch-container label:active:after {
+    width: 0vw;
 }

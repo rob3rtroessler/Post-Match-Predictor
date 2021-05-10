@@ -114,6 +114,18 @@
     box-shadow: none;
 }
 
+.gen-slider-container .noUi-connect {
+    background: #dfc27d;
+}
+
+.gen-slider-container .noUi-handle {
+    border: 1px solid #8c510a;
+    border-radius: 2px;
+    background: #dfc27d;
+    cursor: default;
+    box-shadow: none;
+}
+
 #sentiment-slider .noUi-handle {
     border: 1px solid #8c510a;
     border-radius: 2px;
@@ -135,14 +147,6 @@
     left: 17px;
 }
 
-.info-text {
-    font-size: 0.9vh;
-}
-
-.info-text-center {
-    font-size: 1.3vh;
-    text-align: center
-}
 
 .model-label {
     font-size: 1.3vh;

@@ -67,7 +67,9 @@ function build_feed_row(listOfMatchesAndPredictions){
                                                     </span>
                                                 </div>
                                                 <div class="row justify-content-center" style="height: 34%">
-                                                    <img class="align-self-center info-png" src="static/img/info.png" onclick="show_feed_match(${index})">
+                                                    <img class="align-self-center info-png" src="static/img/info.png" onclick="display_feed_match(${index})">
+                                                    
+                                                    
 <!--                                                    <span class="align-self-center" style="text-align: center; font-size: 0.6em" onclick="show_feed_match(${index})">explore</span>-->
                                                 </div>
                                             </div>
@@ -129,10 +131,6 @@ function request_latest_predictions() {
         .catch(function (error) {
             console.log(error)
         });
-}
-
-function show_feed_match(index) {
-    console.log('show_feed_match', lastTenGlobal[index])
 }
 
 // INIT - make initial request, then start to listen to the server
