@@ -10,17 +10,52 @@
 
 
 
-/*.form-check-input:checked[type=checkbox] {*/
-/*    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");*/
-/*}*/
-/*.form-check-input:checked[type=radio] {*/
-/*    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");*/
-/*}*/
-/*.form-check-input[type=checkbox]:indeterminate {*/
-/*    background-color: yellow;*/
-/*    border-color: green;*/
-/*    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");*/
-/*}*/
+
+.btn-primary {
+    color: #000000;
+    background-color: rgba(223,194,125,0.6);
+    border-color: rgb(223, 194, 125);
+
+}
+.btn-primary:hover {
+    color: #000000;
+    background-color: rgba(223, 194, 125, 0.8);
+    border-color: rgb(150, 122, 65);
+}
+
+.btn-check:focus + .btn-primary, .btn-primary:focus {
+    color: #000000;
+    background-color: rgba(223, 194, 125, 0.8);
+    border-color: rgb(150, 122, 65);
+    box-shadow: 0 0 0 0.25rem rgb(150, 122, 65);
+}
+
+.btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+    color: #000000;
+    background-color: rgba(223, 194, 125, 0.8);
+    border-color: rgb(150, 122, 65);
+}
+.btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.25rem rgb(150, 122, 65);
+}
+.btn-primary:disabled, .btn-primary.disabled {
+    color: #000000;
+    background-color: rgba(223, 194, 125, 0.8);
+    border-color: rgb(150, 122, 65);
+}
+
+
+.btn-secondary {
+    color: #000000;
+    background-color: rgba(94,177,191,0.7);
+    border-color: rgb(94, 177, 191);
+
+}
+.btn-secondary:hover {
+    color: #000000;
+    background-color: rgba(94,177,191,0.9);
+    border-color: rgba(41, 84, 91, 0.54);
+}
 
 
 

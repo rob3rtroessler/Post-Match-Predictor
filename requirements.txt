@@ -9,3 +9,7 @@ bs4
 numpy
 apscheduler
 sklearn
+tqdm
+datasets
+torch
+transformers

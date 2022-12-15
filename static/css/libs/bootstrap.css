@@ -2920,6 +2920,7 @@ textarea.form-control-lg {
   background-color: #0b5ed7;
   border-color: #0a58ca;
 }
+
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;
   background-color: #0b5ed7;

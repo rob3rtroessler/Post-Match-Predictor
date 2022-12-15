@@ -3,15 +3,6 @@
     GRID COLORS
 */
 
-/* colors
-
- dfc27d #yellowish
-            .style('fill', '#35978f')
-            .style('stroke', '#01665e')
-
- */
-
-
 /* background color */
 .color-0 {
     background: rgb(205, 204, 204);
@@ -35,15 +26,16 @@
 }
 
 /*TABS*/
-#explore-tab {
+#dataset-tab {
     height: 100%;
-    background: rgba(53, 151, 143, 0.6);
+
+    background: rgba(94,177,191,0.75);
 
     border-radius: 5px 0px 0px 5px;
-    border-left: thin solid rgba(1, 102, 94, 0.6);
-    border-top: thin solid rgba(1, 102, 94, 0.6);
-    border-right: thin solid rgba(1, 102, 94, 0.6);
-    border-bottom: thin solid rgba(1, 102, 94, 0.6);
+    border-left: thin solid rgb(54,106,115);
+    border-top: thin solid rgb(54,106,115);
+    border-right: thin solid rgb(54,106,115);
+    border-bottom: thin solid rgb(54,106,115);
 
     font-family: "Rock Salt";
     font-size: 1.75vh;
@@ -52,28 +44,28 @@
     font-weight: 400;
 }
 
-#explore-tab:hover {
+#dataset-tab:hover {
     height: 100%;
     background: rgba(53, 151, 143, 1);
     border-radius: 5px 0px 0px 5px;
     cursor: pointer;
 }
 
-#explore-tab.active-tab{
-    background: rgba(53, 151, 143, 0.85);
-    border-left: thin solid #01665e;
-    border-top: thin solid #01665e;
-    border-right: thin solid #01665e;
-    border-bottom: thin solid #01665e;
+#dataset-tab.active-tab{
+    background: rgba(94,177,191,0.75);
+    border-left:thin solid rgb(54,106,115);
+    border-top: thin solid rgb(54,106,115);
+    border-right: thin solid rgb(54,106,115);
+    border-bottom: thin solid rgb(54,106,115);
 }
 
-#explore-tab.active-tab:hover{
+#dataset-tab.active-tab:hover{
     font-weight: 700;
     letter-spacing: 1.5px;
 }
 
 
-#gen-tab {
+#input-tab {
     height: 100%;
     background: rgba(223,194,125,0.6);
 
@@ -90,7 +82,7 @@
     font-weight: 400;
 }
 
-#gen-tab:hover {
+#input-tab:hover {
     height: 100%;
     background: rgba(223,194,125,1);
     cursor: pointer;
@@ -105,7 +97,7 @@
 }
 
 
-#gen-tab.active-tab{
+#input-tab.active-tab{
     background: rgba(223,194,125,1);
     border-left: thin solid #8c510a;
     border-top: thin solid #8c510a;
@@ -113,45 +105,42 @@
     border-bottom: thin solid #8c510a;
 }
 
-#gen-tab.active-tab:hover{
+#input-tab.active-tab:hover{
     font-weight: 700;
     letter-spacing: 1.5px;
 }
 
 
-#explore-gen-tab-wrapper {
-    height: 15%;
+#input-tab-wrapper {
+    height: 25%;
     padding-left: 1vw;
     padding-bottom: 0.5vh;
     padding-right: 0.5vw;
     padding-top: 1vh
 }
 
-#explore-generator-wrapper {
-    height: 85%;
+#input-body-wrapper {
+    height: 75%;
     padding-left: 1vw;
     padding-right: 0.5vw;
     padding-top: 0.5vh;
     padding-bottom: 1vh;
 }
 
-
-#distribution-wrapper {
-    height: 100%;
+#dataset-tab-wrapper {
+    height: 25%;
     padding-left: 0.5vw;
-    padding-bottom: 1vh;
-    padding-right: 0.5vw;
+    padding-bottom: 0.5vh;
+    padding-right: 1vw;
     padding-top: 1vh
 }
 
-
-
-#mf-wrapper {
-    height: 100%;
+#dataset-body-wrapper {
+    height: 75%;
     padding-left: 0.5vw;
-    padding-bottom: 1vh;
     padding-right: 1vw;
-    padding-top: 1vh
+    padding-top: 0.5vh;
+    padding-bottom: 1vh;
 }
 
 /*
@@ -180,32 +169,6 @@
 
 
 
-#twitter-logo-parent{
-    background: url("../img/twitter-logo.png");
-    /*background: url("https://static01.nyt.com/images/2014/08/10/magazine/10wmt/10wmt-articleLarge-v4.jpg?quality=75&auto=webp&disable=upscale");*/
-    background-size: 8vh;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-#twitter-logo-parent:hover {
-    backdrop-filter: blur();
-    border: thin solid black;
-}
-
-#twitter-icon-right{
-    display: block;
-    max-height:80%;
-    width: auto;
-    height: auto;
-}
-
-#twitter-icon-right:hover{
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
-    cursor: pointer;
-}
-
 .info-png {
     filter: opacity(80%);
     max-height:60%;
@@ -219,18 +182,24 @@
     cursor: pointer;
 }
 
-/* The sidepanel menu */
-.sidepanel {
-    height: 250px; /* Specify a height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0;
-    background-image: linear-gradient(#35978f, rgba(53, 151, 143, 0.6));
-    overflow-x: hidden; /* Disable horizontal scroll */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+.data-table-column {
+    border: thin solid grey;
+    font-size: 1.75vh;
 }
 
-.feed_box::-webkit-scrollbar {
-    display: none;
+.query-element {
+    cursor: default;
+    border: thin solid grey;
+    padding: 3.5px;
+    background: springgreen;
+    font-size: 1.5vh;
+}
+
+.query-element:hover {
+    cursor: pointer;
+}
+
+
+.query-element.select,.from,.as,.join,.group,.by,.on,.desc,.limit {
+    font-weight: bold;
 }
